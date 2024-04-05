@@ -1,0 +1,1544 @@
+\documentclass[fleqn]{ieej}
+%\documentclass[letter,fleqn]{ieej}
+%\documentclass[english,fleqn]{ieej}
+%\documentclass[english,letter,fleqn]{ieej}
+%\documentclass[comment,fleqn]{ieej}
+%\documentclass[feature,fleqn]{ieej}
+%\documentclass[foreword,fleqn]{ieej}
+%\documentclass[essay,fleqn]{ieej}
+%\usepackage{amsthm}
+\usepackage[defaultsups]{newtxtext}
+\usepackage[varg]{newtxmath}
+\usepackage[superscript,nomove]{cite}
+\usepackage[dvipdfmx]{graphicx}% for (u)platex
+\usepackage[dvipdfmx]{hyperref}\usepackage{pxjahyper}% for (u)platex
+%\usepackage{graphicx}% for LuaLaTeX
+%\usepackage[luatex,pdfencoding=auto]{hyperref}% for LuaLaTeX
+\hypersetup{%
+ setpagesize=false,
+ colorlinks=true,
+ %colorlinks=false,
+ urlcolor=blue,
+ citecolor=black,
+ linkcolor=black,
+}
+
+\setcounter{page}{1}
+
+\def\ClassFile{\texttt{ieej.cls}}
+\def\PS{{\scshape Post\-Script}}
+\def\AmSLaTeX{\leavevmode\hbox{$\cal A\kern-.2em\lower.376ex
+ \hbox{$\cal M$}\kern-.2em\cal S$-\LaTeX}}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\FIELD{A}
+\YEAR{2022}
+\NO{1}
+\jtitle[�d�C�w��_����\LaTeXe{} �N���X�t�@�C���̎g����]
+       {�d�C�w��_����\LaTeXe{} �N���X�t�@�C��\\
+        \ClassFile �̎g����}
+\etitle{How to Use the \LaTeXe{} Class File (\ClassFile)\\
+  for the Transactions of The Institute of Electrical Engineers of Japan}
+\makeatletter
+\if@english
+\makeatother
+ \authorlist{%
+  \authorentry[TaroDenshi@iee.or.jp]{Taro Denshi}{m}{TRL}
+  \authorentry{Hanako Denki}{n}{KEC}% [ABC]
+ }
+ \affiliate[TRL]
+  {Technical Research Labs., Shin-nichi Electric Co., Ltd.\\
+   7--2, Gobancho, Chiyoda-ku, Tokyo, Japan 102--0076}
+ \affiliate[KEC]
+  {Technical Labs., Kagoshima Electron Corp.\\
+   2--100, Daikan-cho, Kagoshima, Japan 890--0099}
+\else
+ \authorlist{%
+  \authorentry[TaroDenshi@iee.or.jp]{�d�q ���Y}{Taro Denshi}{m}{TRL}
+  \authorentry{�d�C �Ԏq}{Hanako Denki}{n}{KEC}
+ }
+ \affiliate[TRL]
+  {�V���d�@�i���j�Z�p������\\ ��102--0076\hskip1\zw �����s���c��ܔԒ�7--2}
+  {Technical Research Labs., Shin-nichi Electric Co., Ltd.\\
+   7--2, Gobancho, Chiyoda-ku, Tokyo, Japan 102--0076}
+ \affiliate[KEC]
+  {�������d�q�i���j�Z�p������\\ ��890--0099\hskip1\zw �������s�㊯��2--100}
+  {Technical Labs., Kagoshima Electron Corp.\\
+   2--100, Daikan-cho, Kagoshima, Japan 890--0099}
+\fi
+
+\received{2021}{10}{11}
+\revised{2022}{4}{4}
+\NoteOnArticle{�{�_���́c�c�����M�C���������̂ł���B}
+\NoteIntConf{�{�_����2020�N ���ۉ�c�Z�Z�Z�Z�Ŕ��\�����_���i����(1) \textcopyright 2020 IEEJ�j�����M�C���������̂ł���B}
+
+\begin{document}
+\begin{abstract}
+IEE Japan provides a \LaTeXe{} class file, named \ClassFile, 
+for the Transactions of The Institute of Electrical Engineers of Japan. 
+This document describes how to use the class file, 
+and also makes some remarks about typesetting a document by using \LaTeXe.
+The design is based on ASCII Japanese p\LaTeXe. 
+\end{abstract}
+\begin{jkeyword}
+�N���X�t�@�C���C�A�X�L�[�œ��{�� p\LaTeXe
+\end{jkeyword}
+\begin{ekeyword}
+class file, ASCII Japanese p\LaTeXe
+\end{ekeyword}
+\maketitle
+
+\section{�܂�����}\label{sec:intro}
+
+�{�h�L�������g�͓d�C�w�� \LaTeXe{} �N���X�t�@�C����
+�g���Ę_�����L�q����ۂ̒��ӎ������܂Ƃ߂����̂ł��B
+\ref{template} �߂ŁC���̃N���X�t�@�C���ɏ]�����L�q���@���C
+\ref{generalnote} �߂ŃN���X�t�@�C���S�ʂɊւ���
+���ӎ������C\ref{typesetting} �߂ŁC���e�쐬�̍ۂ̃^�C�s���O��
+���ӎ�������ѐ������Ŗʂ��͂ݏo���ꍇ�Ȃǂ̏������@���C
+\ref{source} �߂Ń\�[�X�t�@�C���̒�o�ɂ������Ă�
+���ӎ�����������܂��B
+
+���e�쐬�ɂ������ẮC���̃N���X�t�@�C����
+�����ɔz�z����� \texttt{template-(je).tex} �𗘗p�ł��܂��B
+
+%�{���̑g�ő̍قɏ]���āC�e��p�����[�^����яo�͑̍ق�ݒ肵�Ă��܂��̂ŁC
+%���C�A�E�g�ɂ������p�����[�^�͐�΂ɕύX���Ȃ��ł��������B
+
+\section{�e���v���[�g�Ȃ�тɋL�q���@}\label{template}
+
+�u�_���v�C�u�����J�����^�[�v�C
+�u�p���_���v�C�u����v�̃^�C�v�ʂɂ���āC
+�L�q�̎d�����኱�قȂ�܂��B
+
+�u�_���v�^�C�v���珇�ɐ������܂��B
+
+\subsection{�u�_���v�^�C�v�̋L�q���@}
+
+\begin{verbatim}
+\documentclass[fleqn]{ieej}
+%\usepackage{graphicx}
+\usepackage[defaultsups]{newtxtext}
+\usepackage[varg]{newtxmath}
+\usepackage[superscript,nomove]{cite}
+
+\FIELD{A}
+\YEAR{2022}
+\NO{1}
+\jtitle{�a���^�C�g��}
+%\jtitle[���p�^�C�g��]{�a���^�C�g��}
+\etitle{�p���^�C�g��}
+\authorlist{%
+ \authorentry{���{�ꖼ}{���[�}����}
+  {������}{���x��}
+}
+%\Jauthoralign{3}
+\affiliate[���x��]
+ {�a������\\ �A����}
+ {�p������\\ �A����}
+\received{2021}{10}{11}
+\revised{2022}{4}{4}
+\NoteOnArticle{�{�_���́c�c�����M�C���������̂ł���B}
+\NoteIntConf{�{�_����2020�N ���ۉ�c ... }
+\begin{document}
+\begin{abstract}
+�p�� Summary
+\end{abstract}
+\begin{jkeyword}
+�a���L�[���[�h
+\end{jkeyword}
+\begin{ekeyword}
+�p���L�[���[�h
+\end{ekeyword}
+\maketitle
+\section{�܂�����}
+ ---- �i���j ----
+\begin{thebibliography}{99}
+\bibitem{}
+\bibitem{}
+ ---- �i���j ----
+\end{thebibliography}
+\appendix
+\section{}
+ ---- �i���j ----
+\acknowledgment % �ӎ�
+ ---- �i���j ----
+\begin{biography}
+\profile{������}{���{�ꖼ}{���ҏЉ�}
+\end{biography}
+\end{document}
+\end{verbatim}
+
+\onelineskip
+
+�ȉ��C�L�q���@��������܂��B
+
+\begin{itemize}
+\item
+�������̂Ƃ��ă^�C���X�n�̏��̂��g�p���܂��B
+\begin{verbatim}
+\usepackage[defaultsups]{newtxtext}
+\usepackage[varg]{newtxmath}
+\end{verbatim}
+
+\item
+\verb/\FIELD/ �͌f�ڊ�]�̕��厏�̎w��ł��B
+\verb/\FIELD/ �̈������Ƃ��āC\par\noindent
+�u��b�E�ޗ��E���ʕ��厏�v�� \texttt{A} ���C\par\noindent
+�u�d�́E�G�l���M�[���厏�v�� \texttt{B} ���C\par\noindent
+�u�d�q�E���E�V�X�e�����厏�v�� \texttt{C} ���C\par\noindent
+�u�Y�Ɖ��p���厏�v�� \texttt{D} ���C\par\noindent
+�u�Z���T�E�}�C�N���}�V�����厏�v�� \texttt{E} ���C\par\noindent
+���ꂼ��w�肵�Ă��������B
+
+\item
+\verb/\YEAR/ �� \verb/\YEAR{2022}/ �̂悤�ɐ�����w�肵�Ă��������B
+
+\item
+\verb/\NO/ �� \verb/\NO{1}/ �̂悤�Ɍ����A���r�A�����Ŏw�肵�Ă��������B
+
+\verb/\YEAR/�C\verb/\NO/ �ɂ��ẮC���e�_�������f�ڂ���邩
+�킩��Ȃ��ꍇ�́C��������ɂ��邩�R�}���h���R�����g�A�E�g���Ă��������B
+
+\item
+\verb/\jtitle/ �ɂ́C�_���̃^�C�g����40���ȓ��Ń^�C�v���Ă��������B
+�C�ӂ̏ꏊ�ŉ��s�������ꍇ�ɂ́C\verb/\\/ �ŉ��s���Ă��������B
+
+\verb/\jtitle/ �̈������͒��i�w�b�_�[�j�ɂ��o�͂���܂��B
+���p��17�����ȓ��̒Z���^�C�g�����w�肵�Ă��������B
+\begin{verbatim}
+\jtitle[���p�^�C�g��]{�^�C�g��}
+\end{verbatim}
+�^�C�g�����������Ē����͂ݏo���ꍇ�̓��[�j���O���o�͂���܂��B
+
+\item
+\verb/\etitle/ �ɂ͉p���^�C�g�����^�C�v���Ă��������B
+�������𒌂ɏo�͂��Ȃ����߁C
+\verb/\etitle[���p�^�C�g��]{�^�C�g��}/ �Ƃ����g�����͂ł��܂���B
+
+\item
+���҂̃��X�g���o�͂���ɂ́C�ȉ��̂悤�ɋL�q���Ă��������B
+���Җ��C�����ʁC�����Ȃǂ̏o�͑̍ق������I�ɐ������܂��B
+
+��{�I�ȃX�^�C����
+\begin{verbatim}
+\authorlist{%
+ \authorentry{���O}{���[�}����}
+  {������}{���x��}
+}
+\end{verbatim}
+�Ƃ����`�ł��B�Ⴆ�΁C���̂悤�ɋL�q���Ă��������B
+\begin{verbatim*}
+\authorlist{%
+\authorentry{�d�q ���Y}{Taro Denshi}
+ {m}{TRL}
+\authorentry{�d�C �Ԏq}{Hanako Denki}
+ {n}{KEC}
+}
+\end{verbatim*}
+
+���҂̃��X�g�� \verb/\authorentry/ �ɋL�q���C
+���X�g�S�̂� \verb/\authorlist/ �̈������ɂ��܂��B
+
+\begin{itemize}
+\item
+��1�������͒��҂̓��{�ꖼ���w�肵�܂��B
+{\bfseries ���Ɩ��̊Ԃɂ͕K�����p�̃X�y�[�X��}��}���Ă�������
+�i�X�y�[�X��}�����Y�ꂽ�ꍇ�ɂ́C���[�j���O���o�͂���܂��j�B
+
+\item
+��2�������͒��҂̃��[�}�������w�肵�܂��B
+�X�y���̍ŏ��̕����͑啶���ŋL�q���Ă��������B
+
+\item
+��3�������͉����ʂ�\���A���t�@�x�b�g���L�q���܂��B
+
+��3�������Ɏw��ł��镶���́C
+\texttt{m}�C\texttt{a}�C\texttt{s}�C\texttt{l}�C
+\texttt{n}�C\texttt{h}�C\texttt{S}�C\texttt{f} ��
+�����̂����ꂩ1�ł��B
+���̏ꍇ�C{\bfseries �������̑O��ɗ]���ȃX�y�[�X�����Ȃ��ł�������}�B
+���Ƃ��� \verb*/{m }/ �ł͉����ʂ͏o�͂���܂���B
+
+\vskip.85\baselineskip
+
+\begin{center}
+\begin{small}
+\tabcolsep=.4\zw
+\begin{tabular}{lll}
+\hline
+\texttt{m}\,ember           & ����     & Member\rule{0mm}{3.5mm}\\
+\texttt{a}\,ssociate member & �y��     & Associate Member\\
+\texttt{s}\,tudent member   & �w����   & Student Member\\
+\texttt{l}\,ife member      & �I�g��� & Life Member\\
+\texttt{n}\,on-member       & ����   & Non-member\\
+\texttt{h}\,onorary member  & ���_��   & Honorary Member\\
+\texttt{S}\,enior member    & �㋉��� & Senior Member\\
+\texttt{f}\,ellow           & �t�F���[ & Fellow\\
+\hline
+\multicolumn{3}{l}{{\footnotesize\rule{0mm}{3.5mm}%
+  �����͎w�肷�镶���C���E�E���͏o�͂���������}}
+\end{tabular}
+\end{small}
+\end{center}
+
+\vskip.85\baselineskip
+
+\item
+���҂̃��[���A�h���X���L�q���邱�Ƃ��ł��܂��B
+�ȉ��̂悤�ɋL�q���܂��B
+\begin{verbatim*}
+\authorlist{%
+\authorentry[TaroDenshi@iee.or.jp]
+{�d�q ���Y}{Taro Denshi}{m}{TRL}
+\end{verbatim*}
+�擪�y�[�W�����i��\hfil\break
+``a) Correspondence to: TaroDenshi@iee.or.jp'' ��
+�o�͂���܂��B
+
+\item
+���҂������̏ꍇ�C���Җ���1�s��2�����o�͂���܂�
+�i3���̏ꍇ��1�s��3���j���C
+5���ȏ�̏ꍇ�C�ȉ��̂悤�ɂ����
+1�s��3�����o�͂��邱�Ƃ��ł��܂��B
+\begin{verbatim}
+\Jauthoralign{3}
+\end{verbatim}
+�w��ł��鐔����2��3�݂̂ł��B
+
+\item
+�a���_���̏ꍇ�C
+�p���ŏo�͂���钘�Җ��Ɖ����ʂ̏o�͂ŁC
+���҂������̏ꍇ�ȂǂɔC�ӂ̏ꏊ��
+���s���s�������ꍇ�́C
+\verb/\breakauthorline/ �R�}���h���g�p���Ă��������B
+
+\verb/\breakauthorline{3}/ �Ƃ����3�l�ڂ̒��҂̌��ŉ��s���܂��B
+�����ɂ́C�J���}�ŋ�؂��ĕ����̐������w��ł��܂��B
+
+\item
+��4�������͒��҂̏������x�����w�肵�܂��B
+��q���� \verb/\affiliate/ �R�}���h�̑�1�������ɑΉ����Ă��܂��B
+���x���͑�w���C��Ɩ��C�n���Ȃǂ�\���Ȍ��Ȃ��̂ɂ��Ă��������B
+���̏ꍇ���C{\bfseries �������̑O��ɗ]���ȃX�y�[�X�����Ȃ��ł�������}�B
+
+���҂ɏ������Ȃ��ꍇ�́C\texttt{none} �ƋL�q���Ă��������B
+
+%\item
+%���݂̏������w�肵�����ꍇ�́C
+%��5�������Ƃ��ău���P�b�g�Ƀ��x�����w�肵�܂��B
+%���̃��x���́C��q���� \verb/\paffiliate/ �̑�1�������ɑΉ����܂��B
+%
+%��{�I�ȃX�^�C����%
+%\begin{verbatim}
+%\authorlist{%
+% \authorentry{���O}{���[�}����}
+%  {������}{���x��}[���݂̏������x��]
+%}
+%\end{verbatim}
+%�Ƃ����`�ł��B
+\end{itemize}
+
+\verb/\authorentry/ �ɂ͒��҂����l�ł��w�肷�邱�Ƃ��ł��܂��B
+
+\item
+���҂̏����� \verb/\affiliate/ �Ɏw�肵�܂��B
+��{�I�ȃX�^�C����
+\begin{verbatim}
+\affiliate[���x��]
+ {�a������\\ �A����}
+ {�p������\\ �A����}
+\end{verbatim}
+�Ƃ����`�ł��B
+
+��1�������� \verb/\authorentry/ �Ŏw�肵�����x���ɑΉ����郉�x�����w�肵�܂��B
+��2�������ɘa���̏����ƘA������C
+��3�������ɉp�������ƘA������w�肵�Ă��������B
+���̏ꍇ���C���x���̑O��ɗ]���ȃX�y�[�X��}�����Ȃ��ł��������B
+\verb/\authorentry/ �ɋL�q�������x���̏o�����ɋL�q����悤�ɂ��Ă��������B
+
+%\item
+%���݂̏����� \verb/\paffiliate/ �Ɏw�肵�܂��B
+%��{�I�ȃX�^�C����
+%\begin{verbatim}
+%\paffiliate[���x��]
+% {�a������\\ �A����}
+% {�p������\\ �A����}
+%\end{verbatim}
+%�Ƃ����`�ł��B
+%��1�������� \verb/\authorentry/ �̑�5�������Ńu���P�b�g�Ɏw�肵��
+%���x�����L�q���܂��B
+
+\item
+\verb/affiliate/ �̃��x�����C\verb/\authorentry/ �Ŏw�肵��
+���x���ƑΉ����Ȃ��Ƃ��́C���[�j���O���b�Z�[�W���[���ɏo�͂���܂��B
+
+\item
+\verb/\received/�C\verb/\revised/ �ɂ́C
+��t�C�Ď�t�̓��t���^�C�v���Ă��������B���ꂼ��3�̈��������Ƃ�C
+�O���珇�ɔN�i����j�C���C���̐������^�C�v���܂��B
+���̂悤�ɋL�q�����
+\begin{verbatim}
+\received{2021}{10}{11}
+\revised{2022}{4}{4}
+\end{verbatim}
+�p�����Җ��̉��ɏo�͂���܂��B
+���t���s���ȏꍇ�́C�R�����g�A�E�g���Ă��������B
+
+\item
+\verb/\NoteOnArticle/ �́C�_���������\�ł��邱�ƂȂǂ��L�q���܂��B
+
+\item
+\verb/\NoteIntConf/ �́C���ۉ�c�\�e�W�E�v���V�[�f�B���O��
+�i�d�C�w���ÁE���Áj�Ŕ��\���C���쌠��d�C�w��ɏ��n���Ă���_����
+�d�C�w��_�����ɓ��e����ꍇ�Ɏg�p����R�}���h�ł��B
+
+\item
+�p�� Summary �� \texttt{abstract} ���ɁC
+150�`200 words �ȓ��ŁC
+�a���L�[���[�h�Ɖp���L�[���[�h��
+���ꂼ�� \texttt{jkeyword} ���� \texttt{ekeyword} ���ɁC
+6�ȓ��ŋL�q���Ă��������B
+
+\item
+�����̃R�}���h���w�肵����C
+\verb/\maketitle/ ��u���Ă��������B
+
+\item
+\verb/\appendix/ �́C\LaTeXe{} �W���̃X�^�C���ł̓Z�N�V�����ԍ���
+�A���t�@�x�b�g�ɂ��āC�J�E���^�[�����Z�b�g���܂����C
+���̃N���X�t�@�C���ł́C``�t�^'' �Ƃ������o�����o�͂��܂��B
+
+�����ԍ��� ``(�t1)'' �ƂȂ�܂��B
+�}�\�̃L���v�V�����́C�}�̏ꍇ�C
+%``�t�}{\sffamily 1}''�C
+``app.\ Fig.\,1'' �Əo�͂���܂��B
+
+\item
+\verb/\acknowledgment/ �R�}���h�́C
+�ӎ����L�q����ꍇ�Ɏg�p���Ă��������B
+
+\item
+���ҏЉ���o�͂���ɂ́C\texttt{biography} ����
+���� \verb/\profile/ �R�}���h���g�p���Ă��������B
+\begin{verbatim*}
+\profile{m}{�d�q ���Y}{19xx�N���B
+19xx�Nxx��XX��w�H�w���d�C�ȑ��ƁB
+ ---- �i���j ----
+}
+\end{verbatim*}
+��1�������ɂ͉����ʂ��C
+��2�������ɂ͖��O���C
+��3�������ɂ͗������C
+���ꂼ��^�C�v���Ă��������B
+
+�ʐ^���ȗ�����ꍇ�ɂ́C\verb/\profile*/ �R�}���h���g�p���Ă��������B
+
+\begin{itemize}
+\item
+��1�������́C\verb/\authorentry/ �̑�3�������Ɠ����悤�ɁC
+�����ʂ�\�� \texttt{m}�C\texttt{a}�C\texttt{s}�C\texttt{l}�C
+\texttt{n}�C\texttt{h}�C\texttt{S}�C\texttt{f} �̂�����
+�����ꂩ1���w�肵�܂��B
+
+\item
+��2�������̖��O�́C���Ɩ��̊Ԃɔ��p�X�y�[�X��K������Ă��������B
+
+\item
+���҂̊�ʐ^��\������ꍇ�́C
+$�� : �c = 22 : 28$ �� PDF �t�@�C���Ȃǂ�p�ӂ��C
+���҂̏o�����ɁC�t�@�C������ a1.pdf, a2.pdf, ... �Ƃ��āC
+�J�����g�f�B���N�g���ɒu���܂��B
+�����̃t�@�C�����J�����g�f�B���N�g���ɂ���΁C�R���p�C������
+�����I�ɓǂݍ��݂܂��B
+
+PDF �̎�荞�݂́C�ȉ��̃R�}���h
+\begin{verbatim}
+\resizebox{22mm}{28mm}
+ {\includegraphics{a1.pdf}}
+\end{verbatim}
+�ōs���Ă��܂��B
+
+jpg �Ȃǂ̉摜���g�������ꍇ�́C�ȉ��̂悤�Ȓ�`�������
+�i�g���q�̖��O���w��j�C��荞�ނ��Ƃ��ł��܂��B
+\begin{verbatim}
+\makeatletter
+\def\ieej@in@ext{jpg}
+\makeatother
+\end{verbatim}
+��荞�܂��t�@�C���� \texttt{a1.jpg} �ƂȂ�܂��B
+
+�J�����g�f�B���N�g���� a1.pdf �Ȃǂ̃t�@�C�����p�ӂ���Ă��Ȃ��ꍇ�́C
+�l�p�̃t���[���ƂȂ�܂��B
+\end{itemize}
+
+\end{itemize}
+
+\subsection{�u�p���_���v�^�C�v�̋L�q���@}
+
+�h�L�������g�N���X�̃I�v�V�����Ƃ��� \texttt{english} ���w�肵�Ă��������B
+�u�_���v�^�C�v�̋L�q���@�ƈقȂ�̂́C\par\noindent
+\verb/\title/\par\noindent
+\verb/\authorentry/\par\noindent
+\verb/\affiliate/\par\noindent
+\texttt{keyword}\par
+%\noindent
+%\verb/\caption/�i\ref{caption} �ߎQ�Ɓj\par
+\noindent
+�ł��B
+\begin{verbatim}
+\documentclass[english,fleqn]{ieej}
+ ---- �i���j ----
+\title[���p�a���^�C�g��]{�p���^�C�g��}
+\authorlist{%
+ \authorentry{���[�}����}{������}{���x��}
+}
+\affiliate[���x��]{�p������\\ �A����}
+\end{verbatim}
+
+\onelineskip
+
+\begin{itemize}
+\item
+�^�C�g���� \verb/\title/ �R�}���h���g���܂��B
+���̏ꍇ�C���͘a���ɂ���K�v������̂ŁC�K��
+\begin{verbatim}
+\title[���p�a���^�C�g��]{�p���^�C�g��}
+\end{verbatim}
+�ƋL�q���Ă��������B
+
+\item
+���҃��X�g�̋L�q�́C�a���̖��O���o�͂���K�v���Ȃ�����
+��������3�ɂȂ�܂��B
+\begin{verbatim}
+\authorlist{%
+ \authorentry{���[�}����}{������}
+  {���x��}
+}
+\end{verbatim}
+�Ⴆ�΁C���̂悤�ɋL�q���܂�%
+\footnote{�p���_���ł́C���Җ���1�s��2���L�q����̂���{�ł����C
+1�s��1�������ׂ邱�Ƃ��\�ł��B
+�v���A���v����\hfil\break
+\texttt{\symbol{"5C%"
+}def\symbol{"5C%"
+}Eauthoralign\protect\string{1\protect\string}}\hfil\break
+�ƋL�q���Ă��������B}\label{fnsample}�B
+\begin{verbatim}
+\authorlist{%
+\authorentry{Taro Denshi}{m}{TRL}
+\authorentry{Hanako Denki}{n}{KEC}
+}
+\end{verbatim}
+
+���҂̃��[���A�h���X���L�q���邱�Ƃ��ł��܂��B
+\begin{verbatim}
+\authorlist{%
+\authorentry[TaroDenshi@iee.or.jp]
+{Taro Denshi}{m}{TRL}
+\end{verbatim}
+
+\item
+���҂̏����̋L�q���C�a���������o�͂���K�v���Ȃ�����
+��������2�ɂȂ�܂��B
+\begin{verbatim}
+\affiliate[���x��]{�p������\\ �A����}
+\end{verbatim}
+
+\item
+�L�[���[�h�́C\texttt{keyword} ���ɋL�q���܂��B
+\end{itemize}
+
+\subsection{�u�����J�����^�[�v�^�C�v�̋L�q���@}
+
+�h�L�������g�N���X�̃I�v�V�����Ƃ��� \texttt{letter} ���w�肵�Ă��������B
+���̑��́u�_���v�^�C�v�Ɠ����ł��B
+\begin{verbatim}
+\documentclass[letter,fleqn]{ieej}
+�p����
+\documentclass[english,letter,fleqn]{ieej}
+\end{verbatim}
+
+�p�� Summary �� 100 words ���x�ł��邱�Ƃ��ł��܂��B
+�܂��C���ҏЉ���ȗ����邱�Ƃ��ł��܂��B
+
+\subsection{�u����v����сu���W����v�^�C�v�̋L�q���@}
+
+�u����v����сu���W����v�́C
+�h�L�������g�N���X�̃I�v�V�����Ƃ��āC���ꂼ�� \texttt{comment}�C
+\texttt{feature} ���w�肵�Ă��������B
+
+%�u����v����сu���W����v�^�C�v�̏ꍇ�ɂ́C
+%���� ``���''�C``���W���'' �Əo�͂���邽�߁C
+%�u�_���v�^�C�v�̂悤�� \verb/\jtitle[���p�^�C�g��]{�^�C�g��}/ ��
+%�L�q����K�v�͂���܂���B
+
+% �T�u�^�C�g�����K�v�ȏꍇ�́C\verb/\jsubtitle/ �R�}���h�𗘗p���Ă��������B
+
+\section{�N���X�t�@�C���Ɋւ��钍��}\label{generalnote}
+
+\subsection{�Z�N�V�����̎��ǂ�}
+
+�͂���ѐߌ��o���́C3���ȉ��̏ꍇ�C
+4���ǂ�ɂȂ�悤�ɐݒ肵�Ă��܂��i\ref{sec:intro}�͎Q�Ɓj�B
+
+\subsection{�����ɂ���}
+
+�{���̃f�B�X�v���[�����́C�����Ɛ����ԍ����h�b�g�łȂ����߁C
+\texttt{dotseqn.sty} ��g�ݍ���ł��܂��B
+
+�����̓��͍��[����2�������̂Ƃ���ɁC�����ԍ��͉E�[����1���������Ƃ����
+�o�͂���܂��B���̐ݒ��O��ɐ����̐܂�Ԃ��𒲐����Ă��������B
+
+���Ƃ��΁C
+\begin{verbatim}
+\begin{eqnarray}
+\lefteqn{ \iint_S 
+ \left(\frac{\partial V}{\partial x}
+ -\frac{\partial U}{\partial y}\right)
+ dxdy} \quad\nonumber\\
+ &=& \oint_C \left(U \frac{dx}{ds}
+      + V \frac{dy}{ds} \right)ds
+\end{eqnarray}%
+\end{verbatim}
+�ƋL�q����΁C
+\begin{eqnarray}
+\lefteqn{ \iint_S 
+ \left(\frac{\partial V}{\partial x}
+ -\frac{\partial U}{\partial y}\right)
+ dxdy} \quad\nonumber\\
+ &=& \oint_C \left(U \frac{dx}{ds}
+      + V \frac{dy}{ds} \right)ds
+\end{eqnarray}%
+�Əo�͂���܂��B
+
+�{���̏ꍇ�C2�i�g�݂�1�i�̍��E�������܂����߁C�����Ɛ����ԍ����d�Ȃ�����C
+�������͂ݏo�����肷�邱�Ƃ��p�ɂɐ�����Ǝv����̂ŁC\allowbreak
+\verb/Overfull \hbox/ {\bfseries �̃��b�Z�[�W�ɂ͓��ɋC�����Ă�������}
+�i\ref{longformula} �ߎQ�Ɓj�B
+
+\subsection{AMS �p�b�P�[�W�ɂ���}
+
+\texttt{newtxmath} �p�b�P�[�W�͓����� \texttt{amsmath} �����[�h���܂����C
+�����̃f�B�X�v���[�����̊��i%\texttt{equation}, 
+\texttt{align}, \texttt{gather}, \texttt{multiline}, 
+\texttt{split} ���Ȃǁj�ŁC
+�����Ɛ����ԍ��̊Ԃ������I�Ƀh�b�g�łȂ����Ƃ��ł��܂���B
+���n�I�ȕ��@�ł����C�����ԍ��Ƃ̊Ԃ��h�b�g�łȂ��ׂ������̍Ō�ɁC
+�Ⴆ�Έȉ��̂悤�ȋL�q�����邱�Ƃ��ł��܂��B
+\begin{verbatim}
+\rlap{\hbox to 10mm{\ \EqnDots}} 
+\end{verbatim}
+����ɂ���āC���� 0mm �̔��̒��ɁC10\,mm ���̃h�b�g��
+�����̖������E���ɂ͂ݏo�����邱�Ƃ��ł��܂��B
+
+\subsection{�}�\�ɂ���}
+
+�L���v�V�������܂�
+�}�\���̕����͂��ׂĉp���ŋL�q���C�{�����ŎQ�Ƃ���ꍇ�́C
+``Fig.1''�C``Table~1'' �ȂǂƂ��܂��B
+
+\texttt{figure} ����� \texttt{table} ���̓����́C
+\verb/\footnotesize/�i7\,pt�j�őg�܂��悤�ɐݒ肵�Ă���܂��B
+
+�ԍ����̐}�\�̏o�͈ʒu���w�肷��ꍇ�C
+�I�v�V�����Ƃ��� \texttt{[h]} �͎g�킸�C
+\texttt{[tb]} �ȂǂƂ��āC�Ŗʂ̓V���n�ɒu���悤�ɂ��Ă��������B
+
+\subsubsection{�}�̎�荞��}
+
+�}�͊�{�I��PDF�`���̃t�@�C����ǂݍ��ނ悤�ɂ��ĉ������B
+�ŋ߂�PDF��ǂݍ��ނ��Ƃ���������Ă��܂��B
+
+�K���ȃA�v���P�[�V�����Ő}���쐬���ۑ��`����PDF�ɂ��܂��B
+
+PDF�t�@�C���̓t�@�C���̓�����BoundingBox�̏��������Ă��܂���̂�
+\begin{verbatim}
+\includegraphics[bb=0 0 ���|�C���g�� �c�|�C���g��,width=��]{file.pdf}
+\end{verbatim}
+�ȂǂƖ����I��BoundingBox�̒l���L�q���邩�C
+�^�[�~�i���ňȉ��̂悤�� \texttt{extractbb} �����s��
+\begin{verbatim}
+extractbb file.pdf
+\end{verbatim}
+�������ꂽ \texttt{file.xbb} �Ƃ����t�@�C������C
+�R���p�C������BoundingBox�̏��𓾂���@������܂������C
+TeX Live 2015�ȍ~�CMacTeX-2015�ȍ~�CW32TeX�ł́C�R���p�C�����Ɏ����I��
+\texttt{extractbb} �����s����BoundingBox�̏����擾�ł���悤�ɂȂ�܂����B
+�������C\texttt{xbb} �t�@�C���𐶐����Ă������ق����R���p�C���̑��x��
+�����Ȃ�܂��B���̏ꍇ�́C�}���C�������Ƃ��ɂ��̓s�x \texttt{extractbb} ��
+���s����K�v������܂��B
+
+�ڂ����͈ȉ���URL���Q�Ƃ���邱�Ƃ����߂܂��B
+
+\noindent
+\href{https://texwiki.texjp.org/}{https://texwiki.texjp.org/}
+
+�Ȃ��CPDF�ł͂Ȃ�\PS �`���iEPS�j�̐}��ǂݍ��݂����Ƃ��ɂ́C
+\begin{verbatim}
+\usepackage[dvips]{graphicx}
+\end{verbatim}
+�Ǝw�肵�ĉ������B
+
+��荞�ݕ����ȒP�ɐ������܂��B�܂��p�b�P�[�W�Ƃ���
+\begin{verbatim}
+\usepackage[dvipdfmx]{graphicx}
+\end{verbatim}
+�ȂǂƎw�肵�C
+\begin{verbatim}
+\begin{figure}[tb]
+\begin{center}
+\includegraphics{file.pdf}
+\end{center}
+\caption{...}
+\label{fig:1}
+\end{figure}
+\end{verbatim}
+�̂悤�ɋL�q���܂��B
+\begin{verbatim}
+\includegraphics[scale=0.5]{file.pdf}
+\end{verbatim}
+�Ƃ���΁C�}�� 0.5 �{�ɃX�P�[�����O���܂��B
+�������Ƃ� \verb/\scalebox/ ���g���āC
+���̂悤�Ɏw�肷�邱�Ƃ��ł��܂��B
+\begin{verbatim}
+\scalebox{0.5}{\includegraphics{file.pdf}}
+\end{verbatim}
+
+�܂��C�� 30\,mm �ɂ������ꍇ�́C
+\begin{verbatim}
+\includegraphics[width=30mm]{file.pdf}
+\end{verbatim}
+�Ƃ��܂��B�������Ƃ� \verb/\resizebox/ ���g����
+���̂悤�Ɏw�肷�邱�Ƃ��ł��܂��B
+\begin{verbatim}
+\resizebox{30mm}{!}
+ {\includegraphics{file.pdf}}
+\end{verbatim}
+
+�����ƕ��̗������w�肷��ꍇ��
+\begin{verbatim}
+\includegraphics[width=30mm,height=40mm]
+ {file.pdf}
+\end{verbatim}
+�܂���
+\begin{verbatim}
+\resizebox{30mm}{40mm}
+ {\includegraphics{file.pdf}}
+\end{verbatim}
+�ł��B
+
+���ɂ����܂��܂ȗ��p���@������܂�����C
+�ڂ����͕���\citen{Nakano,FMi2,GS}�Ȃǂ������������B
+
+\subsubsection{�L���v�V����}
+\label{caption}
+
+�L���v�V�������p���ŋL�q���܂��B
+
+\begin{figure}[t]% fig.1
+\setbox0\vbox{%
+\hbox{\verb/\begin{figure}[tb]/}
+\hbox{\verb/\begin{center}/}
+\hbox{\verb/... �}�̗v�f .../}
+\hbox{\verb/\end{center}/}
+\hbox{\verb/%\capwidth=50mm/}
+\hbox{\verb/\caption{An example of caption/}
+\hbox{\verb/in English.}/}
+\hbox{\verb/\label{fig:1}/}
+\hbox{\verb/\end{figure}/}
+}
+\begin{center}
+\fbox{\box0}
+\end{center}
+\caption{An example of caption in English.}
+\label{fig:1}
+\end{figure}
+
+�L���v�V�����̕��́C1�i�̐}�̏ꍇ�� 72\,mm �ɁC
+2�i�ʂ��̐}�̏ꍇ�̓e�L�X�g�̕��� 0.8 �{�ɐݒ肵�Ă��܂��B
+�������C�C�ӂ̕��ŃL���v�V������܂�Ԃ������ꍇ�́C
+\texttt{float} ������ \verb/\capwidth/ ��
+���l���w�肵�܂��iFig.~\ref{fig:1} �Q�Ɓj�C
+
+\begin{table}[t]% Table 1
+%\vskip-.5\Cvs %%!!
+\caption{An example of table caption in English.}
+\label{table:1}
+\setbox0\vbox{%
+\hbox{\verb/\begin{table}[tb]/}
+\hbox{\verb/\caption{An example of table caption in English.}/}
+\hbox{\verb/\label{table:1}/}
+\hbox{\verb/\begin{center}/}
+\hbox{\verb/\begin{tabular}{c|c|c}/}
+\hbox{\verb/\hline/}
+\hbox{\verb/A & B & C\\/}
+\hbox{\verb/\hline/}
+\hbox{\verb/X & Y & Z\\/}
+\hbox{\verb/\hline/}
+\hbox{\verb/\end{tabular}/}
+\hbox{\verb/\end{center}/}
+\hbox{\verb/\end{table}/}
+}
+\begin{center}
+\begin{tabular}{c|c|c}
+\hline
+A & B & C\\
+\hline
+X & Y & Z\\
+\hline
+\end{tabular}
+\halflineskip
+\fbox{\box0}
+\end{center}
+%\vskip-.5\Cvs %%!!
+\end{table}
+
+\subsection{�����̈��p�� \texttt{thebibliography} ��}
+
+\begin{itemize}
+\item
+\BibTeX{} �p�� \texttt{bst} �X�^�C���t�@�C���́C
+\pagebreak[2]%
+������ł������p�ł���悤�ł��B�ȉ���URL���炽�ǂ邱�Ƃ��ł��܂��B
+
+\noindent
+\href{https://github.com/ehki/jIEEEtran}{https://github.com/ehki/jIEEEtran}
+
+\item
+�������p�ɍۂ��Ă� \texttt{cite.sty} �𗘗p���܂��B
+\begin{verbatim}
+\usepackage[superscript,nomove]{cite}
+\end{verbatim}
+
+�Ⴆ�΁C
+\verb/\cite{/\allowbreak
+\texttt{Bech,\allowbreak
+Gr,\allowbreak
+tex,\allowbreak
+ohno,\allowbreak
+nodera1,\allowbreak
+PA,\allowbreak
+Seroul,\allowbreak
+itou}\allowbreak
+\verb/}/ �ƋL�q����΁C
+�ԍ��������ꍇ�͏ȗ����C�ԍ����ɕ��וς��܂�%
+\cite{Bech,Gr,tex,ohno,nodera1,Seroul,PA,itou}�B
+
+�{������ ``���� \citen{tex} ���Q��'' �̂悤�ɁC���t���ł͂Ȃ�
+�����ԍ����o���ꍇ�́C
+�u���� \verb/\citen{tex}/ ���Q�Ɓv�ƋL�q�ł��܂��B
+
+\texttt{thebibliography} ���ɂ��ẮC
+���Җ��C�������C�W���[�i���i�o�ŎЁj�C���s�N�ȂǁC�C�j�V�����C
+����̃X�^�C���C���ԂȂǂ͖{���̋K���ɏ]���Ă��������B
+\end{itemize}
+
+\subsection{hyperref�ɂ���}
+\label{sec:hyperref}
+
+\begin{itemize}
+\item
+\texttt{hyperref} ���g�p����Ƃ��́C
+\texttt{PXjahyper} �p�b�P�[�W�𕹗p���邱�Ƃ����߂܂�
+�i�ȉ��� \texttt{(u)platex} ���g���ꍇ�j�B
+\begin{verbatim}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\end{verbatim}
+
+���̃p�b�P�[�W���g���Ȃ��Ƃ��́C
+\texttt{hyperref}�I�v�V������\texttt{setpagesize=false}��
+�w�肷�邱�Ƃ����߂܂��i�͂ݏo��������邽�߉��s���Ă��܂��j�B
+\begin{verbatim}
+\usepackage[dvipdfmx,setpagesize=false]
+ {hyperref}
+\end{verbatim}
+
+\item
+�p���_���� \texttt{pdflatex} �𗘗p������C
+Lua\LaTeX\ �𗘗p�����ꍇ�́C
+���ꂼ��ȉ��̂悤�Ɏw�肷��̂����S�ł��B
+\begin{verbatim}
+\usepackage{graphicx}
+\usepackage[pdfencoding=auto]{hyperref}
+\end{verbatim}
+�܂���
+\begin{verbatim}
+\usepackage{graphicx}
+\usepackage[luatex,pdfencoding=auto]
+ {hyperref}
+\end{verbatim}
+
+\item
+���̃p�b�P�[�W�Ƃ̕��p�Ő�����s��Ȃǂɂ��ẮC
+�ȉ���URL���Q�Ƃ���Ȃǂ��Ă��������B
+
+\noindent
+\href{https://texwiki.texjp.org/?hyperref#v71488f4}{https://texwiki.texjp.org/?hyperref\#v71488f4}
+%\def\verbatimsize{\small}
+%\begin{verbatim}
+%https://texwiki.texjp.org/?hyperref#v71488f4
+%\end{verbatim}
+\end{itemize}
+
+\subsection{�藝�C��`�Ȃǂ̊�}
+
+�藝�C��`�C����Ȃǂ̒藝�^���� \verb/\newtheorem/ ��
+���p���邱�Ƃ��ł��܂���\cite{latex,FMi1}�C
+�{���̑̍قɏ]���āC���̏㉺�̋󂫁C�C���f���g��ύX���C
+���o���̓S�V�b�N�ɂ����C�����̉p�����C�^���b�N�ɂȂ�Ȃ��悤��
+�ݒ肵�Ă��܂��B
+
+���Ƃ��΁C
+\begin{verbatim}
+\newtheorem{teiri}{�藝}
+\begin{teiri}[�t�F���}�[�̍ŏI�藝]
+$n>2$ �ɑ΂��ẮC
+������ $x^n + y^n = z^n$ ��
+���R�����͑��݂��Ȃ�
+�iFermat's last theorem�j�B
+\end{teiri}
+\end{verbatim}
+�ƋL�q����΁C
+\newtheorem{teiri}{�藝}
+\begin{teiri}[�t�F���}�[�̍ŏI�藝]
+$n>2$ �ɑ΂��ẮC
+������ $x^n + y^n = z^n$ ��
+���R�����͑��݂��Ȃ�
+�iFermat's last theorem�j�B
+\end{teiri}
+\noindent
+�Əo�͂���܂��B
+
+\subsection{�r���ɂ���}
+
+�r���}�[�N�́C�J�E���^�[���i�ނ��ƂɁu$^{\dagger}$�C$^{\dagger\dagger}$�C
+$^{\dagger\dagger\dagger}$�v�ƂȂ�܂��i\pageref{fnsample} �y�[�W�Q�Ɓj�B
+�V�����y�[�W�ɂȂ��Ă��C�J�E���^�[�͐i�܂����Z�b�g����܂��B
+
+\subsection{\texttt{\symbol{"5C%"
+               }flushbottom} �ɂ���}
+
+�N���X�t�@�C���ł� \verb/\flushbottom/ ���w�肵�Ă���܂��B
+���������āC�{���̈�̍��E2�i�̉��������܂��B
+
+\subsection{verbatim ��}
+
+verbatim ���̃��t�g�}�[�W���C�s�ԁC�T�C�Y��
+�ύX���邱�Ƃ��ł��܂�\cite{Okumura}�B�f�t�H���g��
+\begin{verbatim}
+\verbatimleftmargin=0pt
+ % ���t�g�}�[�W���� 0pt 
+\def\verbatimsize{\normalsize}
+ % �t�H���g�T�C�Y
+\verbatimbaselineskip=\baselineskip
+ % �{���Ɠ����s��
+\end{verbatim}
+�ł����C���ꂼ��p�����[�^��T�C�Y�w���ύX���邱�Ƃ��ł��܂��B
+\begin{verbatim}
+\verbatimleftmargin=2zw
+% --> ���t�g�}�[�W����2�������ɕύX
+\def\verbatimsize{\footnotesize}
+% --> �T�C�Y�� \footnotesize �ɕύX
+\verbatimbaselineskip=3mm
+% --> �s�Ԃ� 3mm �ɕύX
+\end{verbatim}
+
+\subsection{\ClassFile{}�Œ�`���Ă���}�N��}\label{sec:macros}
+
+\begin{itemize}
+\item
+�u�ؖ��I�v���Ӗ�����L�� $\Box$ ���o�͂���}�N���Ƃ���
+\verb/\QED/ ���`���Ă���܂�\cite{tex}�B
+\verb/\hfill$\Box$/ �ł́C���̋L���̒��O�̕������s���ɗ���ꍇ�C
+�L�����s���ɗ��Ă��܂��܂��̂ŁC\verb/\QED/ ���g���Ă��������B
+
+\item
+\verb/\onelineskip/�C\verb/\halflineskip/ �Ƃ����s�ԃX�y�[�X��
+��`���Ă��܂��B
+���̖��̒ʂ�C1�s�󂯁C���s�󂯂Ɏg���Ă��������B�a���̑g�ł̏ꍇ�́C
+���������P�ʂ̋󂯕����D�܂�܂��B
+
+\item
+���̃N���X�t�@�C���ł�Table~\ref{table:2} �̂悤�ɁC
+\verb/\RN/\cite{tex,Bech}��
+\verb/\FRAC/\cite{tex,Okumura}�Ƃ����}�N�����`���Ă��܂��B
+
+\begin{table}[b]% Table 2
+\caption{\texttt{\symbol{"5C% "
+}}\texttt{FRAC} and \texttt{\symbol{"5C% "
+}}\texttt{RN}}
+\label{table:2}
+\begin{center}
+\begin{tabular}{c|c}
+\noalign{\hrule height 0.4mm}
+\verb/\RN{2}/ & \RN{2} \\
+\verb/\RN{117}/ & \RN{117} \\
+\hline
+\verb/\FRAC{$\pi$}{2}/ & \FRAC{$\pi$}{2}\\
+\verb/\FRAC{1}{4}/ & \FRAC{1}{4} \\
+\noalign{\hrule height 0.4mm}
+\end{tabular}
+\end{center}
+\end{table}
+
+\item
+2�{�_�b�V���� ``\ddash '' �́C
+\verb/\ddash/ �Ƃ����}�N�����g���Ă��������B
+---�i\texttt{---}�j��2�d�˂�ƁC
+---��---�̊ԂɎ኱�̃X�y�[�X�����邱�Ƃ�����
+���ꂵ������ł��B
+\item
+���̂ق��ɁC
+\verb/\MARU/�C\verb/\kintou/�C\verb/\ruby/\cite{Okumura} ��
+�g�ݍ���ł��܂��B�g�����ɂ��Ă͎Q�l�����������������B
+\end{itemize}
+
+\section{�^�C�s���O�̒��ӎ���}\label{typesetting}
+
+\subsection{�������g�ł̂��߂�}
+
+\begin{enumerate}
+\item
+�a���̋�Ǔ_�́C
+``\makebox[1\zw][l]{�C}'' ``\makebox[1\zw][l]{�B}''%
+�i�S�p�L���j���g�p���Ă��������B
+�a�����ł́C�p���p�̃J���} ``,''�i���p�j�͎g��Ȃ��ł��������B
+
+\item
+���ʗނ́C�a�����ŉp�������ʂł�����ꍇ�͑S�p�̊��ʂ��g�p���Ă��������B
+�p�����ł͂��ׂĔ��p���̂��g�p���Ă��������B
+
+\noindent
+��F�N���X�iClass�j�t�@�C�� / some (Class) files
+
+��̗�ɂ悤�Ɋ��ʂ̃x�[�X���C�����قȂ�܂��B
+
+\item
+�n�C�t���i\texttt{-}�j�C�񕪃_�b�V���i\texttt{--}�j�C
+�S�p�_�b�V���i\texttt{---}�j��
+��ʂ����Ă��������B�n�C�t���́Cwell-known�Ȃǈ�ʓI�ȉ���̘A���ɁC
+�񕪃_�b�V���́C�d�b�ԍ���pp.298--301�̂悤�ɔ͈͂������Ƃ��Ɏg�p���Ă��������B
+�S�p�_�b�V���́C�p���p��em-dash�i---�j�ŁC���̂悤�ȏꍇ�Ɏg�p���Ă��������B
+
+The em-dash is even longer---it's used as punctuation, as in this sense, 
+and you get it by typing \texttt{---}.\cite{Seroul}
+
+\item
+�S�p�_�b�V����������2�{�_�b�V�� ``\ddash '' �ɂ��ẮC
+\ref{sec:macros} �߂��Q�Ƃ��Ă��������B
+
+\item
+�A���C�������g�ȊO�̏ꏊ�ŁC��s���L���Ƃ邽�߁C\verb/\\/ �ɂ��
+�������s�𗐗p����̂͂悭����܂���B
+
+��s�̒��O�� \verb/\\/ ����ꂽ��C
+\verb/\\/ ��2�d�˂�΁C�m���ɏc�����̃X�y�[�X���L����܂����C\par\noindent
+\verb/Underfull \hbox  (badness 10000) .... /\par\noindent
+�Ƃ������b�Z�[�W����������o�͂���Ă��܂��C�d�v�ȃ��b�Z�[�W��
+�����Ƃ������ɂȂ��Ă��܂��܂�\cite{jiyuu}�B
+\verb/\par\noindent/�C\verb/\hfil\break/�C\ref{sec:macros} �߂̂悤��
+�g���������Ă��������B
+
+\item
+\verb*/�i word �j/ �̂悤�� ``�i �j'' ���� ``( )'' ���̒P��̑O���
+�X�y�[�X�����Ȃ��ł��������B
+
+% \item
+% �{���́C�A�X�L�[�œ��{��\TeX{}�ŃR���p�C�����čŏI�ŉ����쐬���邽�߁C
+% �M���V�A������ $\alpha$�C$\beta$ �Ȃǂɂ��ẮC���̑O���
+% ``�C'' ``�B'' ``�i'' ``�j''�i�S�pJIS�L���j������ꍇ��������
+% ���p�̃X�y�[�X������悤�ɐS�|���Ă��������B
+%
+% \leavevmode\phantom{$\Rightarrow$}
+% \verb*/�M���V�A������$\alpha$�C$\beta$�ɂ��Ă�/\par
+% $\Rightarrow$ �M���V�A������$\alpha$�C$\beta$�ɂ��Ă�\par
+% �i�A�X�L�[�œ��{��\TeX{}���g���ăR���p�C������ꍇ�C
+% �X�y�[�X�����Ȃ��ƃM���V�A�����ƑS�p�����̊Ԃ��܂肬�݂ɂȂ�܂��j\par
+% \leavevmode\phantom{$\Rightarrow$}
+% \verb*/�M���V�A������ $\alpha$�C$\beta$ �ɂ��Ă�/\par
+% $\Rightarrow$ �M���V�A������ $\alpha$�C$\beta$ �ɂ��Ă�
+
+\item
+�v���O�������X�g�ȂǁC�C���f���g���d�v�Ȃ��̂́C
+�͂킴�i\verb/\hspace*{??mm}/ �̎g�p�� \verb/\\/ �Ȃǂɂ�鋭�����s�j��
+���`����̂ł͂Ȃ��C\texttt{list} ���� \texttt{tabbing} ���Ȃǂ�
+�g�����ق����̂��̏C�����y�ł��B
+
+\item
+�������[�h�̒��ł̃n�C�t���C�񕪃_�b�V���C�}�C�i�X�̋�ʂ����Ă��������B
+�Ⴆ�΁C
+\begin{verbatim}
+$A^{\mathrm{b}\mbox{-}\mathrm{c}}$
+\end{verbatim}
+$A^{\mathrm{b}\mbox{-}\mathrm{c}}$ $\Rightarrow$ �n�C�t��
+\begin{verbatim}
+$A^{\mathrm{b}\mbox{--}\mathrm{c}}$
+\end{verbatim}
+$A^{\mathrm{b}\mbox{--}\mathrm{c}}$ $\Rightarrow$ �񕪃_�b�V��
+\begin{verbatim}
+$A^{b-c}$
+\end{verbatim}
+$A^{b-c}$ $\Rightarrow$ �}�C�i�X\par
+\noindent
+�ƂȂ�܂��B���ꂼ��̈Ⴂ���m�F���Ă��������B
+
+\item
+�����̒��ŁC\verb/<,>/ �����ʂ̂悤�Ɏg�p���邱�Ƃ��悭�݂��܂����C
+�������ł͂��̋L���͕s�����L���Ƃ��Ĉ����C���̑O��ɃX�y�[�X������܂��B
+���̂悤�Ȍ`�̋L�������ʂƂ��Ďg�������Ƃ��́C
+\verb/\langle,\rangle/�i$\langle$�C$\rangle$�j���g���悤�ɂ��Ă��������B
+
+\item
+�����s�̐����ŃA���C�������g������Ƃ���
+������ $+$ �܂��� $-$ �Ŏn�܂�ꍇ�C$+$ �� $-$ �͒P�����Z�q��
+�݂Ȃ���܂��i�܂�C$+x$ �� $x+y$ �� $+$ �̑O��̃X�y�[�X��
+�ς��܂��j�B���������āC�����s�̐����� $+$ �� $-$ ���擪�ɂ���ꍇ�́C
+����炪2�����Z�q�ł��邱�Ƃ������K�v������܂�\cite{latex}�B
+\begin{verbatim}
+\begin{eqnarray}
+y &=& a + b + c + ... + e\\
+  & & \mbox{} + f + ... 
+\end{eqnarray}
+\end{verbatim}
+
+\item
+\TeX{}�́C�i�����̐����̒��i\verb/$...$/�j�ł͉��s��
+���܂�����Ă���Ȃ����Ƃ�����̂ŁC
+���̏ꍇ�ɂ� \verb/\allowbreak/ ���g�p���邱�Ƃ�
+���߂܂�\cite{PA}�B
+\end{enumerate}
+
+\subsection{���������̏���}\label{longformula}
+
+�����Ɛ����ԍ����d�Ȃ����萔�����͂ݏo�����肷��ꍇ��
+�Ώ�����C�����������܂��B
+
+\halflineskip
+\hfuzz10pt
+
+\noindent
+{\bfseries ��1}\hskip1\zw \verb/\!/ �ŏk�߂�
+\begin{equation}
+ y=a+b+c+d+e+f+g+h+i+j+k+l+m+n+o
+\end{equation}
+\hskip1\zw
+�����Ɛ����ԍ����d�Ȃ�����C�����ԍ����E�ɉ������ꂽ��C
+���Ȃ�ڋ߂���ꍇ�ɂ́C�܂��C
+2�����Z�L����֌W�L���̑O����C
+\verb/\!/ �ł͂���ŏk�߂���@������܂��B
+\begin{verbatim}
+\begin{equation}
+ y\!=\!a\!+\!b\!+\!c\!+\! ... \!+\!o
+\end{equation}
+\end{verbatim}
+\begin{equation}
+ y\!=\!a\!+\!b\!+\!c\!+\!d\!+\!e\!+\!f
+     \!+\!g\!+\!h\!+\!i\!+\!j\!+\!k\!+\!l\!+\!m\!+\!n\!+\!o
+\end{equation}
+
+�k�߂Ă��Ȃ��d�Ȃ�����͂ݏo���Ă��܂��ꍇ�́C
+
+\halflineskip
+
+\noindent
+{\bfseries ��2}\hskip1\zw \texttt{equation} �ɑウ�� \texttt{eqnarray} ���g��
+\begin{verbatim}
+\begin{eqnarray}
+ y &=& a+b+c+d+e+f+g+h\nonumber\\
+   & & \mbox{}+i+j+k+l+m+n+o
+\end{eqnarray}
+\end{verbatim}
+�̂悤�ɁC�r���Ő܂�Ԃ��΁C
+\begin{eqnarray}
+ y &=& a+b+c+d+e+f+g+h\nonumber\\
+   & & \mbox{}+i+j+k+l+m+n+o
+\end{eqnarray}
+�̂悤�ɂȂ�܂��B
+
+\halflineskip
+
+\noindent
+{\bfseries ��3}\hskip1\zw ������r���Ő؂肽���Ȃ��ꍇ�C
+\verb/\mathindent/ ��ύX����%
+\footnote{����͍��񂹂̐����̏ꍇ�ł��B
+��ʂ̃Z���^�����O�̐����ɂ͓��Ă͂܂�܂���B}�B
+\begin{verbatim}
+\mathindent=0zw % <-- [1]
+\begin{equation}
+ y=a+b+c+d+e+f+g+h+i+j+k+l+m+n+o
+\end{equation}
+\mathindent=2zw % <-- [2] �f�t�H���g
+\end{verbatim}
+�ƋL�q����΁i\texttt{[1]}�j�C
+\mathindent=0\zw
+\begin{equation}
+ y=a+b+c+d+e+f+g+h+i+j+k+l+m+n+o
+\end{equation}
+\mathindent=2\zw
+�ƂȂ��āC�����̓������[�ɂ��܂��B
+���̏ꍇ�C���̐����̌�� \verb/\mathindent/ �Ƃ����p�����[�^��
+���ɖ߂����Ƃ�Y��Ȃ��ł��������i\texttt{[2]}�j�B
+
+\halflineskip
+
+\noindent
+{\bfseries ��4}\hskip1\zw \verb/\lefteqn/ ���g���B
+\begin{equation}
+ \iint_S \left( \frac{\partial V}{\partial x}
+ - \frac{\partial U}{\partial y} \right)dxdy=
+ \oint_C \left(U\frac{dx}{ds}+V\frac{dy}{ds}\right)ds
+ \hskip-3.5mm %% --> oppress `Overful \hbox ...' message 
+\end{equation}
+\hskip1\zw
+���̂悤�ɁC�֌W���Z�q�i$=$�j�܂ł������āC�������͂ݏo������C
+�����Ɛ����ԍ����d�Ȃ�ꍇ�ɂ�
+\begin{verbatim}
+\begin{eqnarray}
+ \lefteqn{
+  \iint_S 
+  \left(\frac{\partial V}{\partial x}
+  -\frac{\partial U}{\partial y}\right) dxdy
+ }\quad \nonumber\\
+ &=& \oint_C \left(U \frac{dx}{ds}
+      + V \frac{dy}{ds} \right)ds
+\end{eqnarray}
+\end{verbatim}
+�̂悤�� \verb/\lefteqn/ ���g���΁C
+\begin{eqnarray}
+\lefteqn{ \iint_S 
+ \left(\frac{\partial V}{\partial x}
+ -\frac{\partial U}{\partial y}\right)
+ dxdy} \quad\nonumber\\
+ &=& \oint_C \left(U \frac{dx}{ds}
+      + V \frac{dy}{ds} \right)ds
+\end{eqnarray}
+�ƂȂ�܂��B
+
+\halflineskip
+
+\noindent
+{\bfseries ��5}\hskip1\zw \texttt{array} ���ł́C
+\verb/\arraycolsep/ �̒l��ς�����C\texttt{@} �\�����g���B
+\begin{equation}
+A = \left(
+  \begin{array}{cccc}
+   a_{11} & a_{12} & \ldots & a_{1n} \\
+   a_{21} & a_{22} & \ldots & a_{2n} \\
+   \vdots & \vdots & \ddots & \vdots \\
+   a_{m1} & a_{m2} & \ldots & a_{mn} \\
+  \end{array}
+    \right) \label{eq:ex1}
+\end{equation}
+\hskip1\zw
+\texttt{\&} �ŋ�؂�ꂽ�e�v�f�̊Ԃ⊇�ʂƂ̊Ԋu���k�߂܂��B
+\begin{verbatim}
+\begin{equation}
+\arraycolsep=3pt %     <--- [1]
+A = \left(
+  \begin{array}{@{\hskip2pt}cccc
+                @{\hskip2pt}}
+%                   �� [2] 
+   a_{11} & a_{12} & \ldots & a_{1n} \\
+   a_{21} & a_{22} & \ldots & a_{2n} \\
+   \vdots & \vdots & \ddots & \vdots \\
+   a_{m1} & a_{m2} & \ldots & a_{mn} \\
+  \end{array}
+    \right) 
+\end{equation}
+\end{verbatim}
+\texttt{[1]} �̂悤�ɁC\verb/\arraycolsep/ �̒l��
+���������Ă݂邩�i�f�t�H���g��5\,pt�j�C
+\texttt{[2]} �̂悤�� \texttt{@} �\�����g���܂��B
+\begin{equation}
+\arraycolsep=3pt
+A = \left(
+  \begin{array}{@{\hskip2pt}cccc@{\hskip2pt}}
+   a_{11} & a_{12} & \ldots & a_{1n} \\
+   a_{21} & a_{22} & \ldots & a_{2n} \\
+   \vdots & \vdots & \ddots & \vdots \\
+   a_{m1} & a_{m2} & \ldots & a_{mn} \\
+  \end{array}
+    \right) \label{eq:ex2}
+\end{equation}
+��(\ref{eq:ex1})��(\ref{eq:ex2})���ׂĂ��������B
+
+\halflineskip
+\hfuzz.5pt
+
+\noindent
+{\bfseries ��6}\hskip1\zw 
+\texttt{pmatrix} ���́C��5�Ɠ����悤�� \verb/\arraycolsep/ �̒l��ς���B
+\begin{equation}
+ A = 
+ \begin{pmatrix}
+  a_{11} & a_{12} & \ldots & a_{1n} \\
+  a_{21} & a_{22} & \ldots & a_{2n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{m1} & a_{m2} & \ldots & a_{mn} 
+ \end{pmatrix}
+ \label{eq:ex3}
+\end{equation}
+\verb/\arraycolsep/ �̃p�����[�^�����������邱�Ƃ�
+�R�����̕����k�߂�i\texttt{[A]} �Q�Ɓj�B
+\begin{verbatim}
+\begin{equation}
+ %\arraycolsep=5pt % default
+ \arraycolsep=2pt  % [A]
+ A = 
+ \begin{pmatrix}
+  a_{11} & a_{12} & \ldots & a_{1n} \\
+  a_{21} & a_{22} & \ldots & a_{2n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{m1} & a_{m2} & \ldots & a_{mn} 
+ \end{pmatrix}
+\end{equation}
+\end{verbatim}
+\begin{equation}
+ \arraycolsep=2pt
+ A = 
+ \begin{pmatrix}
+  a_{11} & a_{12} & \ldots & a_{1n} \\
+  a_{21} & a_{22} & \ldots & a_{2n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{m1} & a_{m2} & \ldots & a_{mn} 
+ \end{pmatrix}
+ \label{eq:ex4}
+\end{equation}
+��(\ref{eq:ex3})��(\ref{eq:ex4})���ׂĂ��������B
+
+�ȏ㋓�����悤�ȏ����ł��Ȃ��������͂ݏo���ꍇ�́C
+���܂芩�߂��܂��񂪁C�ȉ��̂悤�ȕ��@������܂��B
+\begin{itemize}
+\item 
+\texttt{small}�C\texttt{footnotesize} �Ő����S�̂��͂ށB
+\item 
+���������ɒ����ꍇ�́C���q�E����� \texttt{array} ����2�K���Ăɂ���B
+\item 
+��i������ \texttt{table*} �������� \texttt{figure*} ���ɓ����B
+\end{itemize}
+
+\section{�\�[�X�E�t�@�C����o�ɍۂ��Ă̂��肢}
+\label{source}
+
+\begin{enumerate}
+\item
+�f�[�^�̒�o�Ɋւ��ẮC
+�u�d�C�w��厏�ւ̓��e����v���Q�Ƃ��ĉ������B
+\item
+�\�[�X�E�t�@�C���͂ł��邾��
+1�{�̃t�@�C���ɂ܂Ƃ߂Ă��������B
+\item
+���ғƎ��̃}�N���ȂǁC�R���p�C���ɕK�v�ȃt�@�C���C
+�}�̃f�[�^�Ȃǂ͖Y�ꂸ�R�s�[���Ă��������B
+\end{enumerate}
+
+%% ���Җ��F�u��ځv�C�����C���C���C�y�[�W�i����s�N���j 
+\begin{thebibliography}{99}
+\bibitem{tex}
+D.E. �N�k�[�X�F�u\TeX{} �u�b�N�v�C�A�X�L�[�o�ŋǁi1989�j
+
+\bibitem{ohno}
+���`�v�ҁF�u\TeX{} ����v�C�����o�Łi1989�j
+
+\bibitem{Seroul}
+R. Seroul \& S. Levy: 
+A Beginner's Book of \TeX{}, Springer-Verlag (1989)
+
+\bibitem{nodera1}
+�쎛���u�F�u�y�X\LaTeX{}�v�C�����o�Łi1990�j
+
+\bibitem{latex}
+���X���[�E�����|�[�g�F
+�u���������V�X�e��\LaTeX{}�v�C�A�X�L�[�o�ŋǁi1990�j
+
+\bibitem{itou}
+�ɓ��a�l�F�u\LaTeX{} �g�[�^���K�C�h�v�C
+�G�a�V�X�e���g���[�f�B���O�i1991�j
+
+\bibitem{nodera2}
+�쎛���u�F�u���x����\AmSLaTeX{}�v�C�����o�ŁC�i1991�j
+
+\bibitem{jiyuu}
+���G���F�u\LaTeX{} ���R���݁v�C�T�C�G���X�ЁC�i1992�j
+
+\bibitem{fujita}
+���c����F�u���w�ҁE�����w�҂̂��߂�\LaTeX{}---�p�\�R���ɂ��_���쐬�̎���v�C
+�������w���l�i1993�j
+
+\bibitem{Gr}
+G. Gr\"{a}tzer: Math into \TeX{}\,--\,A Simple Introduction to \AmSLaTeX,
+Birkh\"{a}user (1993)
+
+\bibitem{Kopka}
+H. Kopka \& P.W. Daly: 
+A Guide to \LaTeX, Addison-Wesley (1993)
+
+\bibitem{Bech}
+S. von Bechtolsheim: \TeX{} in Practice, Springer-Verlag (1993)
+
+\bibitem{impress}
+��J�D�P�F�u���{��\LaTeX{} ��ԃX�^�C���W�v�C�C���v���X�i1992--1994�j
+
+\bibitem{styleuse}
+�Ð�O���E��F�N�v�F
+�u\LaTeX{} �̃}�N����X�^�C���t�@�C���̗��p�v�i1994�j
+
+\bibitem{Ase}
+�����͂���F�u�Ă��Ă�\TeX{}�v�C�A�X�L�[�o�ŋǁi1994�j
+
+\bibitem{Walsh}
+N. Walsh: Making \TeX{} Work, O'Reilly \& Associates (1994)
+
+\bibitem{Salomon}
+D. Salomon: 
+The Advanced \TeX{}book, 
+Springer-Verlag (1995)
+
+\bibitem{Nakano}
+���쌫�F�u���{�� \LaTeXe �u�b�N�v�C�A�X�L�[�o�ŋǁi1996�j
+
+\bibitem{Fujita4}
+���c����F�u\LaTeXe{} �K��v�C
+�A�W�\���E�E�F�X���C�E�p�u���b�V���[�Y�E�W���p���i1996�j
+
+\bibitem{}
+�����ތȁC�]�����p�F
+�up\LaTeXe{} for Windows Another Manual Vol.0--2�v�C
+�\�t�g�o���N�i1996--1997�j
+
+\bibitem{GS}
+�]�����p�F�uGhostscript Another Manual�v�C�\�t�g�o���N�i1997�j
+
+\bibitem{PA}
+P.W. Abrahams: \TeX{} for the Impatient, Addison-Wesley (1992)\hfil\break
+�|�[���EW�E�G�C�u���n���F�u���� \TeX{}�v�C
+�A�W�\���E�E�F�X���C�E�p�u���b�V���[�Y�E�W���p���i1997�j
+
+\bibitem{FMi1}
+M. Goossens, F. Mittelbach \& A. Samarin: 
+The \LaTeX{} Companion, Addison-Wesley (1994)\hfil\break
+�}�C�P���E�O�[�Z���X�C�t�����N�E�~�b�e���o�b�n�C�A���L�T���_�[�E�T�}�����F
+\LaTeX{} �R���p�j�I���C�A�X�L�[�o�ŋǁi1998�j
+
+\bibitem{Eijkhout}
+V. Eijkhout: \TeX{} by Topic, Addison-Wesley (1991)\hfil\break
+�r�N�^�[�E�G�C�R�[�F
+�u\TeX{} by Topic---\TeX{} ���悭�[���m�邽�߂�39�́v�C
+�A�X�L�[�o�ŋǁi1999�j
+
+\bibitem{Lipkin}
+B.S. Lipkin: 
+\LaTeX{} for Linux, Springer-Verlag New York (1999)
+
+\bibitem{FMi2}
+M. Goossens, S. Rahts, and F. Mittelbach: 
+The \LaTeX{} Graphics Companion, Addison-Wesley (1997)\hfil\break
+�}�C�P���E�O�[�Z���X�C�Z�o�X�`�����E���b�c�C�t�����N�E�~�b�e���o�b�n�F
+�u\LaTeX{} �O���t�B�b�N�X�R���p�j�I���v�C
+�A�X�L�[�o�ŋǁi2000�j
+
+\bibitem{Okumura}
+�������F�F�u�m������5�Łn\LaTeXe{} �������쐬����v�C
+�Z�p�]�_�Ёi2010�j
+
+\bibitem{FMi3}
+M. Goossens, and S. Rahts: 
+The \LaTeX{} Web Companion,  
+Addison-Wesley (1999)\hfil\break
+�}�C�P���E�O�[�Z���X�C�Z�o�X�`�����E���b�c�F
+�u\LaTeX{} Web �R���p�j�I���v�C�A�X�L�[�o�ŋǁi2001�j
+
+\bibitem{PEn}
+�y�[�W�E�G���^�[�v���C�[�X�F
+�u\LaTeXe\ �}�N�� \& �N���X�v���O���~���O��b����v�C
+�Z�p�]�_�Ёi2002�j
+
+\bibitem{Fujita5}
+���c����F
+�u\LaTeXe\ �R�}���h�u�b�N�v�C
+�\�t�g�o���N�i2003�j
+
+\bibitem{Yoshinaga}
+�g�i�O���F
+�u\LaTeXe\ �}�N�� \& �N���X�v���O���~���O���H����v�C
+�Z�p�]�_�Ёi2003�j
+\end{thebibliography}
+
+\raggedbottom
+\appendix
+
+%\section*{�u�������v�̋L�q}
+%�u�������v�̓X�^�C�������łȂ����߃T�|�[�g���Ȃ�
+%\begin{verbatim}
+%\documentclass[foreword,fleqn]{ieej}
+%\jtitle{�a���^�C�g��}
+%\etitle{�p���^�C�g��}
+%\authorlist{%
+% \authorentry{���{�ꖼ}{���[�}����}
+%  {������}{���x��}
+%}
+%\affiliate[���x��]
+% {�a������\\ �A����}
+% {�p������\\ �A����}
+%\end{verbatim}
+%%�u�������v�p�� foreword �I�v�V����
+%% etitle �����͋r���ɏo�͂���邱�Ƃ������΁u�_���v�Ɠ���
+%% \authorentry{�d�́E�G�l���M�[����ҏC�ψ���}{}{}{} �̂悤�Ɉ�������ɂ���
+
+\section{PDF �̍쐬���@}
+
+PDF �ɏ����o���ɂ͈ȉ��̕��@����ʓI�ł��B
+\begin{itemize}
+\item
+dvipdfmx ���g���� dvi �t�@�C���� PDF �ɕϊ����܂��B
+\begin{verbatim}
+dvipdfmx -p a4 -o file.pdf file.dvi
+\end{verbatim}
+
+%\item
+%EPS�̐}�𗘗p����ꍇ�́Cdvips ���g�p���āCps �ɏ����o���܂��B
+%�ȉ��ł͒i���̊֌W�Ő܂�Ԃ��Ă��܂��B
+%\texttt{printer} �ɂ́C���g���̃v�����^�����L�q���܂��B
+%\begin{verbatim}
+%dvips -Pprinter -t a4 -O 0mm,0mm
+%  -o file.ps file.dvi
+%\end{verbatim}
+%���� Acrobat Distiller �� PDF �ɕϊ����܂��B
+\end{itemize}
+
+\section{�N���X�t�@�C������폜�����R�}���h}
+
+�{���̓��e�_���쐬�ɕK�v�Ȃ��R�}���h�͖{�N���X�t�@�C������
+�폜���܂����B�폜�����R�}���h�́C
+
+\noindent
+\verb/\tableofcontents/�C
+\verb/\titlepage/�C
+\verb/\part/�C
+\verb/\theindex/�C\allowbreak
+\texttt{headings}�C\texttt{myheadings} ��
+�����Ɋ֘A�����R�}���h�Ȃǂł��B
+
+%\makeatletter
+%\def\ieej@in@ext{jpg}
+%\makeatother
+
+\begin{biography}
+\profile{m}{�d�q ���Y}{%
+19xx �N���B19xx �N xx �� XX ��w�H�w���d�C�ȑ��ƁB
+19xx �N����w����B19xx �N���u�t�B19xx �N���������B
+�H�w���m�B��Ƃ��� XX �Ɋւ��錤���ɏ]���B
+}
+
+\profile{n}{�d�C �Ԏq}{%
+19xx �N���B19xx �N xx �� XX ��w�H�w���d�C�ȑ��ƁB
+19xx �N XX�i���j�ɓ��ЁB19xx �N���� XX �����������B
+���݁CXX �ɋΖ��B
+}
+\end{biography}
+
+\end{document}
